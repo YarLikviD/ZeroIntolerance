@@ -12,7 +12,7 @@
 
 	<canvas id='main_field'>Обновите браузер</canvas>
 	<script>
-		var ws = new WebSocket("ws://localhost:8080/ws");
+		var ws = new WebSocket("ws://yarlikvid.ru:8080/ws");
 		ws.onopen = function (event) {
 			ws.send(JSON.stringify(Player))
 			draw(players);

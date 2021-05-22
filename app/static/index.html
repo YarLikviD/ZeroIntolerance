@@ -1,100 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ZeroIntolerance (by Робототехнюки)</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="static/js/pixi.js"></script>
 </head>
-
 <body>
-
-	<canvas id='main_field'>Обновите браузер</canvas>
-
-	<script>
-		function PressedKeysRegistry() {
-			this.handler = this.handler.bind(this);
-		}
-
-		PressedKeysRegistry.prototype = {
-			constructor: PressedKeysRegistry,
-			start: function () {
-				addEventListener("keydown", this.handler);
-				addEventListener("keyup", this.handler);
-			},
-
-			stop: function () {
-				removeEventListener("keydown", this.handler);
-				removeEventListener("keyup", this.handler);
-			},
-
-			handler: function (event) {
-				if (event.type === "keydown") {
-					if (this[event.code]) return;
-					this[event.code] = true;
-				} else if (event.type === "keyup") {
-					delete this[event.code];
-				}
-			}
-		};
-
-
-	</script>
-	<script>
-		var ws = new WebSocket("ws://yarlikvid.ru:8080/ws");
-		ws.onopen = function (event) {
-			(function loop() {
-				if ("KeyD" in pressedKeys) Player.x++;
-				if ("KeyA" in pressedKeys) Player.x--;
-				if ("KeyS" in pressedKeys) Player.y++;
-				if ("KeyW" in pressedKeys) Player.y--;
-				ws.send(JSON.stringify(Player))
-				setTimeout(loop, 50);
-
-			})();
-			ws.send(JSON.stringify(Player))
-			draw(players);
-		}
-		ws.onmessage = function (event) {
-			console.log(event);
-			players = JSON.parse(event.data);
-			draw(players);
-		};
-	</script>
-	<script>
-		let example = document.getElementById("main_field"),
-			ctx = example.getContext('2d');
-
-		example.height = 1000;
-		example.width = 1000;
-
-		var players = []
-		var Player = {
-			x: Math.round(Math.random() * 100),
-			y: Math.round(Math.random() * 100)
-		}
-
-		function draw(players) {
-			ctx.clearRect(0, 0, 640, 480);
-			ctx.font = "15pt Arial";
-
-			for (pl of players) {
-				ctx.fillText("0", pl.x, pl.y);
-			}
-
-			// window.requestAnimationFrame(draw(players));
-		}
-
-		var pressedKeys = new PressedKeysRegistry();
-		pressedKeys.start();
-
-
-
-
-	</script>
-
-
+    <script src="static/js/main.js"></script>
 </body>
-
 </html>
